@@ -1,5 +1,9 @@
 import Layout from '../../components/Layout';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import {
+  getAllPostIds,
+  getPostData,
+  getFilteredPostsData,
+} from '../../lib/posts';
 import Head from 'next/head';
 
 import utilStyles from '../../styles/utils.module.css';
@@ -34,9 +38,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
+  const filteredPostsData = await getFilteredPostsData(params.id);
+
   return {
     props: {
       postData,
+      filteredPostsData,
     },
   };
 }
