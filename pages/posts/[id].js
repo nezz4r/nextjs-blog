@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout';
+import ReadMore from '../../components/ReadMore';
 import {
   getAllPostIds,
   getPostData,
@@ -8,7 +9,7 @@ import Head from 'next/head';
 
 import utilStyles from '../../styles/utils.module.css';
 
-export default function Post({ postData }) {
+export default function Post({ postData, filteredPostsData }) {
   return (
     <Layout>
       <Head>
@@ -17,8 +18,10 @@ export default function Post({ postData }) {
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
 
-        <div dangerouslySetInnerHTML={{ __html: postData.body }} />
+        <div>{postData.body}</div>
       </article>
+
+      <ReadMore data={filteredPostsData} />
     </Layout>
   );
 }
@@ -38,7 +41,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
-  const filteredPostsData = await getFilteredPostsData(params.id);
+  const filteredPostsData = await getFilteredPostsData(parseInt(params.id));
 
   return {
     props: {

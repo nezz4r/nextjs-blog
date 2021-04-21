@@ -6,7 +6,6 @@ import utilStyles from '../styles/utils.module.css';
 import { getPostsData } from '../lib/posts';
 
 export default function Home({ allPostsData }) {
-  console.log(allPostsData);
   return (
     <Layout home>
       <Head>
